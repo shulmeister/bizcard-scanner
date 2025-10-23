@@ -1,11 +1,16 @@
 FROM python:3.11-slim
 
-# Install system dependencies
+# Install system dependencies including tesseract
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         tesseract-ocr \
         tesseract-ocr-eng \
-        poppler-utils && \
+        libgl1-mesa-glx \
+        libglib2.0-0 \
+        libsm6 \
+        libxext6 \
+        libxrender-dev \
+        libgomp1 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -23,7 +28,7 @@ COPY . .
 RUN mkdir -p uploads
 
 # Set environment variables
-ENV PORT=10000
+ENV PORT=$PORT
 ENV PYTHONUNBUFFERED=1
 
 # Expose port
