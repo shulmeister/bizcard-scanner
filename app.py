@@ -194,6 +194,11 @@ def index():
     """Main page"""
     return render_template('index.html')
 
+@app.route('/bizcard')
+def bizcard_home():
+    """Business card scanner page for subdomain access"""
+    return render_template('index.html')
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     """Handle file upload and processing"""
