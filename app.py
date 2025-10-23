@@ -283,8 +283,9 @@ def upload_file():
 @app.route('/health')
 def health_check():
     """Health check endpoint"""
-    return jsonify({'status': 'healthy', 'message': 'Business Card Scanner is running'})
+    return jsonify({'status': 'healthy', 'message': 'Business Card Scanner is running'}), 200
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
+    print(f"Starting Business Card Scanner on port {port}")
     app.run(host='0.0.0.0', port=port, debug=False)
