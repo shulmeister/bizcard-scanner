@@ -27,6 +27,9 @@ COPY . .
 # Create uploads directory
 RUN mkdir -p uploads
 
+# Test that the app can be imported
+RUN python3 -c "import app; print('App imported successfully')"
+
 # Set environment variables
 ENV PORT=$PORT
 ENV PYTHONUNBUFFERED=1
@@ -34,5 +37,5 @@ ENV PYTHONUNBUFFERED=1
 # Expose port
 EXPOSE $PORT
 
-# Start the application
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "--workers", "1", "--timeout", "120", "--access-logfile", "-", "--error-logfile", "-", "app:app"]
+# Start the application with explicit port binding
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-10000} --workers 1 --timeout 120 --access-logfile - --error-logfile - app:app"]
