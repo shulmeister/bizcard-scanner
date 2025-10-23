@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: bizcard-scanner
+    name: bizcard-scanner-clean
     runtime: docker
     plan: starter
     dockerfilePath: ./Dockerfile
