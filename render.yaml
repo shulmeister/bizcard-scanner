@@ -2,8 +2,11 @@ services:
   - type: web
     name: bizcard-scanner
     runtime: docker
+    plan: free
     dockerfilePath: ./Dockerfile
     envVars:
+      - key: PORT
+        value: 10000
       - key: MAILCHIMP_API_KEY
         sync: false
       - key: MAILCHIMP_SERVER_PREFIX
@@ -11,4 +14,4 @@ services:
       - key: MAILCHIMP_LIST_ID
         sync: false
       - key: MAILCHIMP_TAG
-        sync: false
+        value: "Referral Source"
