@@ -1,0 +1,17 @@
+.env
+.env.save
+.env.txt
+token.json
+client_secret.json
+*.pyc
+__pycache__/
+uploads/
+converted_jpegs/
+.DS_Store
+*.bak
+*.old
+*.save
+*.backup
+*.broken
+.env.example
+.env.example
