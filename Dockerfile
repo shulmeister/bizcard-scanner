@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 # Install system dependencies
 RUN apt-get update && \
-    apt-get install -y tesseract-ocr poppler-utils && \
+    apt-get install -y --no-install-recommends tesseract-ocr poppler-utils && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -11,7 +11,9 @@ WORKDIR /app
 
 # Copy requirements and install Python dependencies
 COPY requirements_railway.txt .
-RUN pip install --no-cache-dir -r requirements_railway.txt
+# Remove strict version pins to avoid install failures if versions are unavailable
+RUN sed -E 's/==[0-9.]+//' requirements_railway.txt > /tmp/requirements.txt && \
+    pip install --no-cache-dir -r /tmp/requirements.txt
 
 # Copy application code
 COPY . .
@@ -19,8 +21,11 @@ COPY . .
 # Create uploads directory
 RUN mkdir -p uploads
 
-# Expose port
-EXPOSE 10000
+# The port the app runs on (Render requires port 10000 for Docker)
+ENV PORT=10000
 
-# Run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:10000", "web_app:app"]
+# Expose the port
+EXPOSE ${PORT}
+
+# Start the web service using the PORT env var. Use a timeout to avoid idle exits.
+CMD ["gunicorn", "--bind", "0.0.0.0:${PORT}", "--workers", "1", "--timeout", "120", "web_app:app"]
