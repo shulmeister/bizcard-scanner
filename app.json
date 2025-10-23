@@ -1,0 +1,36 @@
+{
+  "name": "Business Card Scanner",
+  "description": "Upload business card images, extract contact info, and add to Mailchimp",
+  "repository": "https://github.com/shulmeister/bizcard-scanner",
+  "logo": "",
+  "keywords": ["python", "flask", "ocr", "tesseract", "mailchimp", "business-cards"],
+  "success_url": "/",
+  "env": {
+    "MAILCHIMP_API_KEY": {
+      "description": "Your Mailchimp API key",
+      "required": true
+    },
+    "MAILCHIMP_SERVER_PREFIX": {
+      "description": "Your Mailchimp server prefix (e.g., us9)",
+      "required": true
+    },
+    "MAILCHIMP_LIST_ID": {
+      "description": "Your Mailchimp list ID",
+      "required": true
+    },
+    "MAILCHIMP_TAG": {
+      "description": "Tag to add to contacts (optional)",
+      "required": false,
+      "value": "Referral Source"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-apt"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "addons": []
+}
