@@ -3,3 +3,12 @@ services:
     name: bizcard-scanner
     runtime: docker
     dockerfilePath: ./Dockerfile
+    envVars:
+      - key: MAILCHIMP_API_KEY
+        sync: false
+      - key: MAILCHIMP_SERVER_PREFIX
+        sync: false
+      - key: MAILCHIMP_LIST_ID
+        sync: false
+      - key: MAILCHIMP_TAG
+        sync: false
