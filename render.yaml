@@ -1,15 +1,10 @@
 services:
   - type: web
     name: bizcard-scanner
-    runtime: python
-    buildCommand: |
-      apt-get update
-      apt-get install -y tesseract-ocr poppler-utils
-      pip install -r requirements.txt
-    startCommand: gunicorn web_app:app --bind 0.0.0.0:$PORT
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
       - key: MAILCHIMP_API_KEY
         sync: false
       - key: MAILCHIMP_SERVER_PREFIX
